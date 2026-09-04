@@ -14,7 +14,7 @@ license: MIT
 icon: snap/local/gruvbox-plus.png
 
 platforms:
-  all: 
+  all:
     build-on: [amd64]
     build-for: [all]
 
@@ -31,18 +31,18 @@ parts:
     after:
       - utils
     plugin: dump
-    source: "https://github.com/SylEleuth/gruvbox-plus-icon-pack/archive/refs/tags/$SNAPCRAFT_PROJECT_VERSION.tar.gz"
+    override-pull: |
+      VERSION="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"
+      craftctl set version="$VERSION"
+      wget -q "https://github.com/SylEleuth/gruvbox-plus-icon-pack/archive/refs/tags/v${VERSION}.tar.gz" -O - | tar -xz --strip-components=1 -C "$CRAFT_PART_SRC"
     override-build: |
-        craftctl default
-        mkdir -p $SNAPCRAFT_PART_INSTALL/share/icons
-        mv $SNAPCRAFT_PART_INSTALL/Numix* $SNAPCRAFT_PART_INSTALL/share/icons/
-        $SNAPCRAFT_STAGE/update-icon-cache.sh $SNAPCRAFT_PART_INSTALL/share/icons
+      craftctl default
+      mkdir -p $SNAPCRAFT_PART_INSTALL/share/icons
+      mv $SNAPCRAFT_PART_INSTALL/Numix* $SNAPCRAFT_PART_INSTALL/share/icons/ 2>/dev/null || true
+      mv $SNAPCRAFT_PART_INSTALL/Gruvbox* $SNAPCRAFT_PART_INSTALL/share/icons/ 2>/dev/null || true
+      $SNAPCRAFT_STAGE/update-icon-cache.sh $SNAPCRAFT_PART_INSTALL/share/icons
     stage:
       - share/icons/Gruvbox-Plus*
-
-    override-pull: |
-      craftctl default
-      craftctl set version="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"       
 
   utils:
     plugin: dump
