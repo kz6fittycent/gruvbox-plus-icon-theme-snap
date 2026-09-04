@@ -14,7 +14,7 @@ license: MIT
 icon: snap/local/gruvbox-plus.png
 
 platforms:
-  amd64: 
+  all: 
     build-on: [amd64]
     build-for: [all]
 
