@@ -37,7 +37,6 @@ parts:
       - tar
     override-pull: |
       craftctl default
-      # Extract version from environment or default to fallback version
       VERSION="${SNAPCRAFT_PROJECT_VERSION}"
       if [ -z "$VERSION" ] || [ "$VERSION" = "0" ]; then
         VERSION="5.3.1"
@@ -50,6 +49,7 @@ parts:
       mkdir -p $SNAPCRAFT_PART_INSTALL/share/icons
       mv $SNAPCRAFT_PART_INSTALL/Numix* $SNAPCRAFT_PART_INSTALL/share/icons/ 2>/dev/null || true
       mv $SNAPCRAFT_PART_INSTALL/Gruvbox* $SNAPCRAFT_PART_INSTALL/share/icons/ 2>/dev/null || true
+      chmod +x $SNAPCRAFT_STAGE/update-icon-cache.sh
       $SNAPCRAFT_STAGE/update-icon-cache.sh $SNAPCRAFT_PART_INSTALL/share/icons
     stage:
       - share/icons/Gruvbox-Plus*
@@ -61,3 +61,6 @@ parts:
       - -*
     build-packages:
       - gtk-update-icon-cache
+    override-build: |
+      craftctl default
+      chmod -R +x $SNAPCRAFT_PART_INSTALL/
