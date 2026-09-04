@@ -6,16 +6,17 @@ description: |
   Gruvbox Plus is the icon pack for Linux, based on and inspired by Suru++, OneDark, 
   Gruvbox icon pack, GruvboxMateria, Papirus, and original Breeze Dark from KDE.
 
-build-base: core20
+build-base: core24
 base: bare
 grade: stable
 confinement: strict
 license: MIT
 icon: snap/local/gruvbox-plus.png
 
-architectures:
-  - build-on: amd64
-    run-on: all
+platforms:
+  amd64: 
+    build-on: [amd64]
+    build-for: all
 
 slots:
   icon-themes:
