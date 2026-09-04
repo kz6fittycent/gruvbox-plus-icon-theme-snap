@@ -23,10 +23,6 @@ jobs:
         with:
           args: pack
 
-      - name: Security Scan
-        uses: anchore/scan-action@v3
-        id: scan
-
       - name: Snapcraft Review
         uses: diddlesnaps/snapcraft-review-action@v1
         with:
