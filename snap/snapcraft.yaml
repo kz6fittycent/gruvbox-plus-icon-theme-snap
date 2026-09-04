@@ -33,11 +33,16 @@ parts:
     plugin: dump
     source: .
     build-packages:
-      - git
       - wget
       - tar
     override-pull: |
-      VERSION="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"
+      craftctl default
+      # Extract version from environment or default to fallback version
+      VERSION="${SNAPCRAFT_PROJECT_VERSION}"
+      if [ -z "$VERSION" ] || [ "$VERSION" = "0" ]; then
+        VERSION="5.3.1"
+      fi
+      
       craftctl set version="$VERSION"
       wget -q "https://github.com/SylEleuth/gruvbox-plus-icon-pack/archive/refs/tags/v${VERSION}.tar.gz" -O - | tar -xz --strip-components=1 -C "$CRAFT_PART_SRC"
     override-build: |
