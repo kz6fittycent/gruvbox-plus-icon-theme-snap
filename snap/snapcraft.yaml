@@ -38,6 +38,10 @@ parts:
         $SNAPCRAFT_STAGE/update-icon-cache.sh $SNAPCRAFT_PART_INSTALL/share/icons
     stage:
       - share/icons/Gruvbox-Plus*
+
+    override-pull: |
+      craftctl default
+      craftctl set version="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"      
         
   utils:
     plugin: dump
