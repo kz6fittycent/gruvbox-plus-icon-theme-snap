@@ -32,6 +32,10 @@ parts:
       - utils
     plugin: dump
     source: .
+    build-packages:
+      - git
+      - wget
+      - tar
     override-pull: |
       VERSION="$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"
       craftctl set version="$VERSION"
