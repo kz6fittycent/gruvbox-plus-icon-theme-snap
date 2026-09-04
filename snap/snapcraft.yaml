@@ -16,7 +16,7 @@ icon: snap/local/gruvbox-plus.png
 platforms:
   amd64: 
     build-on: [amd64]
-    build-for: all
+    build-for: [all]
 
 slots:
   icon-themes:
